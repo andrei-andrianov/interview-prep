@@ -1,16 +1,12 @@
 package main;
 
-import java.io.*;
-import java.lang.reflect.Array;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.toList;
 
 public class PlusMinus {
@@ -52,6 +48,28 @@ class Result {
         var min = arr.stream().limit(4).mapToLong(Integer::longValue).sum();
 
         System.out.println(min + " " + max);
+    }
+
+    public static String timeConversion(String s) {
+        if (s.contains("PM")){
+            return s.startsWith("12")
+                    ? s.substring(0, 8)
+                    : s.replace(s.substring(0, 2), String.valueOf(12 + Integer.parseInt(s.substring(0, 2)))).substring(0, 8);
+        } else {
+            return s.startsWith("12")
+                    ? s.replace("12", "00")
+                    : s.substring(0, 8);
+        }
+    }
+
+    public static int lonelyInteger(List<Integer> a) {
+        Collections.sort(a);
+        for (int i = 0; i < a.size(); i++) {
+            if (i > 0 && !a.get(i).equals(a.get(i - 1))){
+                return a.get(i);
+            }
+        }
+        return 0;
     }
 
 }
