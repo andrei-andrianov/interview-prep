@@ -6,7 +6,7 @@ import java.util.List;
 public class PlusMinus {
 
     public static void main(String[] args) {
-        Result.lonelyInteger(List.of(0,0,1,2,1));
+        System.out.println(Result.lonelyInteger(List.of(0,0,1,2,1)));
     }
 
 }
@@ -48,25 +48,14 @@ class Result {
 
     public static int lonelyInteger(List<Integer> a) {
         boolean[] boolMap = new boolean[101];
-        int value = 0;
-        int n = a.size();
 
-        if (n < 3){
-            if (n == 1){
-                return a.get(0);
-            }
-            return 0;
+        for (Integer item : a) {
+            boolMap[item] = !boolMap[item];
         }
 
-        for (int i = 0; i < n; i++){
-            value = a.get(i);
-
-            boolMap[value] = !boolMap[value];
-        }
-
-        for (int i = 0; i < a.size(); i++){
-            if (boolMap[a.get(i)]){
-                return a.get(i);
+        for (Integer item : a) {
+            if (boolMap[item]) {
+                return item;
             }
         }
 
