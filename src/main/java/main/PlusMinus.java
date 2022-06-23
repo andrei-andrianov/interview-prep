@@ -1,28 +1,12 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 public class PlusMinus {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-        int n = Integer.parseInt(bufferedReader.readLine().trim());
-
-        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                .map(Integer::parseInt)
-                .collect(toList());
-
-        Result.plusMinus(arr);
-
-        bufferedReader.close();
+    public static void main(String[] args) {
+        Result.lonelyInteger(List.of(0,0,1,2,1));
     }
 
 }
@@ -63,12 +47,29 @@ class Result {
     }
 
     public static int lonelyInteger(List<Integer> a) {
-        Collections.sort(a);
-        for (int i = 0; i < a.size(); i++) {
-            if (i > 0 && !a.get(i).equals(a.get(i - 1))){
+        boolean[] boolMap = new boolean[101];
+        int value = 0;
+        int n = a.size();
+
+        if (n < 3){
+            if (n == 1){
+                return a.get(0);
+            }
+            return 0;
+        }
+
+        for (int i = 0; i < n; i++){
+            value = a.get(i);
+
+            boolMap[value] = !boolMap[value];
+        }
+
+        for (int i = 0; i < a.size(); i++){
+            if (boolMap[a.get(i)]){
                 return a.get(i);
             }
         }
+
         return 0;
     }
 
