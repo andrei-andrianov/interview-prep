@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -89,6 +91,18 @@ class Result {
         }
 
         return Math.abs(leftDiagonalSum - rightDiagonalSum);
+    }
+
+    public static List<Integer> countingSort(List<Integer> arr) {
+        var n = Collections.max(arr);
+        var array = new int[n + 1];
+        Arrays.fill(array, 0);
+
+        for (Integer x : arr){
+            array[x] += 1;
+        }
+
+        return Arrays.stream(array).boxed().toList();
     }
 
 }
