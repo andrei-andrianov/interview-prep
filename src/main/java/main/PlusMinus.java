@@ -8,14 +8,13 @@ import java.util.List;
 public class PlusMinus {
 
     public static void main(String[] args) {
-        int[] arr = {4,5,42,1,97,14,5,6,0};
-        Result.quickSort(arr, 0, 8);
-        Arrays.stream(arr).forEach(System.out::println);
+        var arr = List.of(8,1,3,1,4,5,6,3,2);
+        System.out.println(InterviewPrep.countDuplicate(arr));
     }
 
 }
 
-class Result {
+class InterviewPrep {
 
     public static void plusMinus(List<Integer> arr) {
         var nTotal = arr.size();
@@ -129,6 +128,64 @@ class Result {
         arr[end] = swapTemp;
 
         return i+1;
+    }
+
+    public static int countDuplicate(List<Integer> numbers) {
+        var counter = new int[1001];
+        var totalCount = 0;
+        Arrays.fill(counter, 0);
+
+        for (var x : numbers){
+            counter[x] += 1;
+        }
+
+        for (var x : counter){
+            if (x >= 2){
+                totalCount++;
+            }
+        }
+
+        return totalCount;
+    }
+
+    public static int findLargestSquareSize(List<List<Integer>> samples) {
+        var input = samples.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+        var n = samples.size();
+        int maxSize = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (input[i][j] == 1) {
+                    int size = 1;
+                    boolean flag = true;
+
+                    while (size + i < n && size + j < n && flag) {
+                        for (int k = j; k <= size + j; k++) {
+                            if (input[i + size][k] == 0) {
+                                flag = false;
+                                break;
+                            }
+                        }
+
+                        for (int k = i; k <= size + i; k++) {
+                            if (input[k][j + size] == 0) {
+                                flag = false;
+                                break;
+                            }
+                        }
+
+                        if (flag)
+                            size++;
+                    }
+
+                    if (maxSize < size) {
+                        maxSize = size;
+                    }
+                }
+            }
+        }
+
+        return maxSize;
     }
 
 }
