@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -8,8 +7,8 @@ import java.util.List;
 public class PlusMinus {
 
     public static void main(String[] args) {
-        var arr = List.of(8,1,3,1,4,5,6,3,2);
-        System.out.println(InterviewPrep.countDuplicate(arr));
+        int[] arr = {8,1,3,1,4,5,6,3,2};
+        InterviewPrep.bubbleSort(arr);
     }
 
 }
@@ -149,7 +148,9 @@ class InterviewPrep {
     }
 
     public static int findLargestSquareSize(List<List<Integer>> samples) {
-        var input = samples.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+        var input = samples.stream()
+                .map(l -> l.stream().mapToInt(Integer::intValue).toArray())
+                .toArray(int[][]::new);
         var n = samples.size();
         int maxSize = 0;
 
@@ -186,6 +187,20 @@ class InterviewPrep {
         }
 
         return maxSize;
+    }
+
+    public static int[] bubbleSort(int[] arr){
+        int temp = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 1; j < arr.length - i; j++) {
+                if (arr[j-1] > arr[j]){
+                    temp = arr[j-1];
+                    arr[j-1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
     }
 
 }
