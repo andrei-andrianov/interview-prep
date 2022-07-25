@@ -4,16 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class PlusMinus {
-
-    public static void main(String[] args) {
-        int[] arr = {8,1,3,1,4,5,6,3,2};
-        InterviewPrep.bubbleSort(arr);
-    }
-
-}
-
-class InterviewPrep {
+public class Solution {
 
     public static void plusMinus(List<Integer> arr) {
         var nTotal = arr.size();
@@ -189,7 +180,7 @@ class InterviewPrep {
         return maxSize;
     }
 
-    public static int[] bubbleSort(int[] arr){
+    public static void bubbleSort(int[] arr){
         int temp = 0;
         for (int i = 0; i < arr.length; i++) {
             for (int j = 1; j < arr.length - i; j++) {
@@ -200,7 +191,39 @@ class InterviewPrep {
                 }
             }
         }
-        return arr;
+    }
+
+    public static int getMinimumDays(List<Integer> parcels) {
+        int n = parcels.size();
+
+        //assumption
+        if (n <= 1){
+            return 0;
+        }
+
+        boolean isAllDelivered = false;
+        int days = 0;
+
+
+        while (!isAllDelivered){
+            //assumption
+            int minParcelAmount = Integer.MAX_VALUE;
+
+            for (int parcelAmount : parcels) {
+                minParcelAmount = (parcelAmount == 0) ? minParcelAmount : Math.min(minParcelAmount, parcelAmount);
+            }
+
+            for (int i = 0; i < n; i++) {
+                if (parcels.get(i) >= 1){
+                    parcels.set(i, parcels.get(i) - minParcelAmount);
+                }
+            }
+
+            days++;
+            isAllDelivered = parcels.stream().noneMatch(center -> center > 0);
+        }
+
+        return days;
     }
 
 }
