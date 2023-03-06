@@ -226,4 +226,30 @@ public class Solution {
         return days;
     }
 
+    public static String caesarCipher(String s, int k) {
+        var alphabet = "abcdefghijklmnopqrstuvwxyz";
+        var result = new StringBuilder();
+
+        s.chars().forEach(c -> {
+            var charString = String.valueOf((char) c);
+            var isCapital = Character.isUpperCase(c);
+            var index = alphabet.indexOf(charString.toLowerCase());
+
+            if (index == -1){
+                result.append((char) c);
+            } else {
+                for (int i = 0; i < k; i++){
+                    index++;
+                    if (index >= alphabet.length()){
+                        index = 0;
+                    }
+                }
+
+                var newChar = alphabet.charAt(index);
+                result.append(isCapital ? Character.toUpperCase(newChar) : newChar);
+            }
+        });
+
+        return result.toString();
+    }
 }
